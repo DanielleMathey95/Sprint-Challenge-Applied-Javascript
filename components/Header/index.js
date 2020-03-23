@@ -27,6 +27,10 @@ function Header(obj) {
   date.textContent = "Lambda Times";
   temp.textContent = "98°"
 
-  
+
   return headerDiv;
 }
+
+const headerContainer = document.querySelector('.header');
+const newHeader = Header();
+headerContainer.append(newHeader);
