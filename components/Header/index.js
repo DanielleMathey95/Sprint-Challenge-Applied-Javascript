@@ -23,5 +23,10 @@ function Header(obj) {
   headerDiv.appendChild(title);
   headerDiv.appendChild(temp);
 
+  date.textContent = "SMARCH 29, 2019";
+  date.textContent = "Lambda Times";
+  temp.textContent = "98°"
+
+  
   return headerDiv;
 }
