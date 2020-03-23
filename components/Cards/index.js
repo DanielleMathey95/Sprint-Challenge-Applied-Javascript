@@ -17,33 +17,44 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+const newCard = (obj) => {
+  const card = document.createElement('div')
+  const headline = document.createElement('div')
+  const author = document.createElement('div')
+  const imgContainer = document.createElement('div')
+  const authorImage = document.createElement('img')
+  const authorName = document.createElement('span')
 
-const container = document.querySelector('.cards-container');
+card.classList.add('card')
+headline.classList.add('headline')
+author.classList.add('author')
+imgContainer.classList.add('img-container')
 
-function createCard(data) {
-  const cardHeadline = document.createElement('div')
-    headline = document.createElement('div')
-    author = document.createElement('div')
-    author.document.createElement('div')
-    imageContainer = document.createElement('div')
-    image = document.createElement('img')
-    bio = document.createElement('span')
+card.appendChild(headline)
+card.appendChild(author)
+author.appendChild(imgContainer)
+imgContainer.appendChild(authorImage)
+author.appendChild(authorName)
 
-  headline.classList.add('headline');
-  author.classList.add('author');
-  image.classList.add('img-container');
-  cardHeadline.classList.add('card');
+headline.textContent = obj.headline
+authorImage.src = obj.authorPhoto
+authorName.innerHTML = `By ${obj.authorName}`
 
-  headline.textContent = data.headline;
-  image.src = data.authorPhoto;
-  author.textContent = data.authorName;
+return card
+}
 
-  cardHeadline.appendChild(headline);
-  cardHeadline.appendChild(author);
-  author.appendChild(imageContainer);
-  imageContainer.appendChild(image);
-  author.appendChild(bio);
+const cardsContainer = document.querySelector('.cards-container')
 
-  return cardHeadline;
-
-};
+axios.get('https://lambda-times-backend.herokuapp.com/articles')
+  .then((response) => {
+    const articles = Object.values(response.data.articles)
+    articles.forEach(article => {
+      article.forEach(article => {
+        const newArticle = newCard(article)
+        cardsContainer.appendChild(newArticle)
+      })
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+  })

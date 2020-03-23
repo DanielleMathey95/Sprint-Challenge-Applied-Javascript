@@ -23,10 +23,12 @@ function createTab(arr) {
 
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
   .then((response) => {
-    console.log("Good job", response);
     console.log("Topics", response.data.topics);
 
-    createTab(response.data.topics);
+    response.data.topics.forEach(topic => {
+      const newTopic = newTab(topic)
+      entryPoint.appendChild(newTopic)
+    })
   })
 
   .catch((error) => {
